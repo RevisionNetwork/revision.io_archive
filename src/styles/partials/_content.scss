@@ -1,3 +1,71 @@
+.cover{
+	background-size: cover;
+	background-position: center;
+	height: 100%;
+}
+// .top,
+// .bottom{
+// 	position: absolute;
+// 	&.top{top: 0}
+// 	&.bottom{bottom: 0}
+// }
+
+.gradient-texte{
+	display: block;
+	&:after{
+		content: "";
+		position: absolute; right: 0;
+		width: 100%; height: 100%;
+		background-image: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
+	}
+	&.gradient-texte--dark{
+		&:after{
+			background-image: linear-gradient(to right, rgba(34,34,34,0), rgba(34,34,34,1));
+		}
+	}
+}
+.gradient-overlay{
+	&:after{
+		content: "";
+		z-index: 0;
+		position: absolute; right: 0; bottom: 0;
+		width: 100%; height: 100%;
+		background-image: linear-gradient(to bottom, rgba(34,34,34,0), rgba(34,34,34,0.9));
+	}
+}
+
+.peoples{
+	@include flexbox();
+	li{
+		pointer-events: none;
+		.people{
+			pointer-events: auto;
+			@include anime();
+			&.sibling-is-hover{
+				opacity: 0;
+				pointer-events: none;
+			}
+			&.is-hover{
+				.people-body{
+					opacity: 1;
+					pointer-events: auto;
+				}
+			}
+
+			.people-body{
+				@include anime();
+				pointer-events: none;
+				position: absolute;
+				left: 4.5vh;
+				opacity: 0;
+			}
+		}
+		
+		
+	}
+	
+}
+
 dl.gallery-item {
 	margin: 0;
 }

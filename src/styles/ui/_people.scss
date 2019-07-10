@@ -1,0 +1,20 @@
+.people{
+    @include flexbox();
+    @include align-items(center);
+    figure{
+        margin-right: 1vw;
+        border-radius: 4.9vh;
+        overflow: hidden;
+        img{
+            //@include flex-shrink(0);
+            max-height: 3.5vh;
+            max-height: 4.9vh;
+            opacity: 0.9;
+        }
+    }
+    .people-body{
+        pointer-events: none;
+        .name,
+        .info{white-space: nowrap}
+    }
+}

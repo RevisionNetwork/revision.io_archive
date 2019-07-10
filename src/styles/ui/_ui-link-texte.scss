@@ -1,0 +1,54 @@
+.ui-link-texte{
+    height: 100%;
+    .bottom{
+        width: 100%;
+        .url,
+        .btn{
+            position: absolute; bottom: 0;
+            max-width: 50%;
+        }
+        .url{
+            overflow: hidden;
+            white-space: nowrap;
+            .gradient-texte{max-width: 100%;}
+            .icon{
+                position: absolute; right: 0;
+                top: 4px;
+                top: 0;
+            }
+            &:hover{
+                .gradient-texte{text-decoration: underline}
+            }
+        }
+        .btn{
+            right: 0;
+            //display: block;
+            min-width: 260px;
+            background: white;
+            &:hover{
+                background: $color1;
+            }
+        }
+    }
+}
+
+@media all and (max-width:$ipad){
+    .ui-link-texte{
+        min-height: 50vh;
+        .top,
+        .bottom{
+            //position: initial
+        }
+        .bottom{
+            .btn{
+                min-width: initial
+            }
+        }
+        .texte{
+            //min-height: calc(#{$fontL} * 6.5);
+            font-size: calc(#{$fontM} - 1px);
+            line-height: calc(#{$fontMLh} - 1px); 
+        }
+    }
+
+}

@@ -1,0 +1,55 @@
+.ui-headline{
+    text-align: left;
+    height: 100%;
+    .texte{
+        //width: 340px;
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        overflow: hidden;
+        /* autoprefixer: ignore next */
+        -webkit-box-orient: vertical;  
+        
+    }
+    p{
+        
+        
+        
+    }
+    ul{
+        @include flexbox();
+        li a{padding-right: 1em;}
+    }
+}
+
+@media all and (max-width:1023px){
+    .ui-headline{
+        .top,
+        .bottom{
+            position: initial
+        }
+        .texte{
+            -webkit-line-clamp: unset!important;
+            margin-bottom: 1em;
+        }
+    }
+}
+@media all and (max-width:$ipad){
+    .ui-headline{
+        min-height: calc(50vh - (4.9vh * 2));
+        .top,
+        .bottom{
+            //position: initial
+        }
+        .texte{
+            // display: block;
+            // overflow: initial;
+            // text-overflow: initial;
+            // -webkit-line-clamp: initial;
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            overflow: hidden;
+            /* autoprefixer: ignore next */
+            -webkit-box-orient: vertical;  
+        }
+    }
+}

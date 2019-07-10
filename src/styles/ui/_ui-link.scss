@@ -1,0 +1,42 @@
+.ui-link{
+    .btn{
+        margin-bottom: $fontXs;
+        //display: block;
+        background: white;
+        &:hover{
+            background: $color1;
+        }
+    }
+    .url{
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+        .gradient-texte{max-width: 100%;}
+        .icon{
+            position: absolute; right: 0;
+            top: 4px;
+            top: 0;
+        }
+        &:hover{
+            .gradient-texte{text-decoration: underline}
+        }
+    }
+}
+
+.tile-2{
+    .ui-link{
+        height: 100%;
+        @include flexbox();
+        @include flex-direction(column);
+        @include justify-content(space-between)
+    }
+}
+
+@media all and (max-width:$ipad){
+    .ui-link{
+        height: 100%;
+        @include flexbox();
+        @include flex-direction(column);
+        @include justify-content(space-between)
+    }
+}

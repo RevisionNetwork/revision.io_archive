@@ -1,0 +1,204 @@
+.menu-wrap{
+    &.active{
+        .menu{
+            visibility: visible;
+            pointer-events: auto;
+            opacity: 1;
+            transform: scale(1);
+            @include anime(.6s, 0s);
+        }
+        #obj3d{
+            //display: none;
+            pointer-events: none;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0);
+        }
+        .mini-map-wrap{
+            transform: translate(-50%, -50%) scale(.85);
+            opacity:1;
+            pointer-events: auto;
+        }
+    }
+    .menu,
+    #obj3d{
+        position: fixed;
+    }
+    
+    a{@include anime(.1s, 0s);}
+    a:hover{
+        color: $color2;
+    }
+    .menu{
+        @include anime(.6s, .05s);
+        left: 0; top: 0;
+        visibility: hidden;
+        pointer-events: none;
+        opacity: 0;
+        transform: scale(2);
+        background: $color1;
+        //opacity: .5;
+    
+        padding: $margeM;
+        width: 100%; height: 100%;
+        &,a{color: $color3}
+        .row{height: 100%;}
+
+        .naviguation{
+            @include flexbox();
+            @include flex-direction(column);
+            //@include justify-content(space-between);
+            height: 100%;
+            .header,
+            .main-nav{margin-bottom: 2em;}
+            .main-nav{
+                //a {text-transform: capitalize;}
+                .inactive{
+                    opacity: .3;
+                }
+            }
+        }
+
+        .header{
+            .date{white-space: pre}
+        }
+        
+        .social{
+            @include flexbox();
+            a{
+                padding-right: $margeS;
+                display: block;
+            }
+        }
+        
+        
+    }
+
+    .mini-map-wrap{
+        @include anime(.6s, 0s);
+        max-width: 33.333vw;
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%) scale(5);
+        opacity:0;
+        pointer-events: none;
+        overflow: hidden;
+        .mini-map{
+        
+            .item{
+                //@include anime();
+                position: absolute;
+                background: $color3;
+                width: 50px; height: 30px;
+                border: 1px solid black;
+                cursor: pointer;
+                &:hover{background: $color2;}
+                &.inactive{opacity: .3;}
+            }
+            
+        }
+        .here{
+            pointer-events: none;
+            @include anime();
+            opacity: 0;
+            z-index: 50;
+            position: absolute;
+            width: 20px; height: 20px;
+            margin-left: -10px;
+            margin-top: -10px;
+            border-radius: 100%;
+            background: greenyellow;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}
+
+#obj3d{
+    // left: 50%; top: 50%;
+    // transform: translate(-50%, -50%) scale(1);
+    pointer-events: none;
+    right: 0; top: 0;
+    
+    @include anime();
+    .obj3d-btn{
+        cursor: pointer;
+        pointer-events: auto;
+        width: 4vw;
+        width: 10vw;
+        height: 10vh;
+        //background: red;
+        position: absolute;
+        left: 50%; top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+.loading{
+    #obj3d{
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+}
+
+@media all and (max-width:$ipad){
+    .menu,
+    #obj3d{z-index: 250;}
+    .menu-wrap {
+        &.active{
+            #obj3d{
+                opacity: 1;   
+                pointer-events: auto;
+                left: unset; top: 0px; right: 0;
+                max-width: 90px;
+                max-height: 90px;
+                transform: translate(0, 0) scale(1);
+                canvas{
+                    max-width: 90px;
+                    max-height: 90px;
+                }
+                .obj3d-btn{
+                    height: 7vh;
+                    width: 7vh
+                }
+            }
+        }
+        .header{max-width: 80%}
+        .menu{
+            height: 100vh;
+            overflow: hidden;
+            overflow-y: auto;
+            padding: $margeXS;
+            .naviguation{
+                min-height: 90vh;
+                margin-bottom: $fontL;
+            }
+            .menu-index{margin-top: $fontL;}
+            
+        }
+    }
+    .mini-map-wrap{
+        display: none;
+    }
+}
+
+/* ----------- iPad Pro ----------- */
+/* Portrait and Landscape */
+@media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    
+}
+
+/* Portrait */
+@media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    .menu-wrap{
+        .col-md-4{
+            flex-basis: 100%;
+            max-width: 100%;
+        }
+    }
+}

@@ -1,13 +1,11 @@
 import React from 'react';
 import {graphql} from 'gatsby';
 import Helmet from "react-helmet";
-//import PubSub from 'pubsub-js';
+import PubSub from 'pubsub-js';
 
-import Header from "../components/header"
-import Footer from "../components/footer"
-import Social from "../components/social"
-import Repeater from "../components/repeater"
-import Cta from "../components/cta"
+import Tiles from "../components/tiles"
+import Menu from "../components/inc/menu/menu"
+import Modal from "../components/inc/modal"
 
 import favicon from '../images/favicon.png';
 
@@ -17,73 +15,89 @@ class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            mainClass: 'landing-page',
+          bodyClass: 'loading',
+          mainClass: ''
         }
 
     }
 
-
     componentDidMount() {
-        // PubSub.subscribe('IS_CAROUSEL', (e, d) => {
-        //     const mainClass = d.status ? "is-carousel" : ""
-        //     this.setState({
-        //         mainClass: mainClass
-        //     })
-        // })
+      var ua = navigator.userAgent.toLowerCase(); 
+      console.log(ua)
+      if (ua.indexOf('safari') !== -1) { 
+        if (ua.indexOf('chrome') > -1) {
+          document.documentElement.classList.add("chrome")
+        } else {
+          document.documentElement.classList.add("safari")
+        }
+        if (ua.indexOf('ipad') > -1) {
+          document.documentElement.classList.add("ipad")
+        }
+      }
+
+      PubSub.subscribe("3D_LOADED", (e,d) => {
+        setTimeout(() => {
+          this.setState({
+            bodyClass: ''
+          })
+        }, 250)
+      });
+
+      PubSub.subscribe("MENU", (e,d) => {
+        const tilesClass = d.open ? 'is-menu' : ''
+        this.setState({
+          mainClass: tilesClass
+      })
+
+      })
     }
+
     render() {
-        const {mainClass} = this.state
-        const {data} = this.props
-        console.log(data)
+        const {bodyClass, mainClass} = this.state
+        const {
+          contentfulOptions,
+          contentfulMenu,
+          allContentfulTile
+        } = this.props.data
+        //console.log(contentfulOptions.description.childMarkdownRemark.rawMarkdownBody)
+        
         return (
-            <main className={mainClass}>
-                <Helmet>
-                    <meta charSet="utf-8" />
+          <main className={mainClass}>
+              <Helmet>
+                  <meta charSet="utf-8" />
 
-                    <link rel='shortcut icon' type="image/png" href={favicon} />
+                  <link rel='shortcut icon' type="image/png" href={favicon} />
 
-                    <title>{data.contentfulLandingPage.title}</title>
-                    <meta name="description" content={data.contentfulLandingPage.description} />
-                    <meta property="og:url" content="" />
-                    <meta property="og:title" content={data.contentfulLandingPage.title} />
-                    <meta property="og:description" content={data.contentfulLandingPage.description} />
-                    <meta property="og:image" content="" />
+                  <title>{contentfulOptions.title}</title>
+                  <meta name="description" content={contentfulOptions.description.childMarkdownRemark.rawMarkdownBody} />
+                  <meta property="og:url" content="" />
+                  <meta property="og:title" content={contentfulOptions.title} />
+                  <meta property="og:description" content={contentfulOptions.description.childMarkdownRemark.rawMarkdownBody} />
+                  <meta property="og:image" content={contentfulOptions.image.file.url} />
 
-                    <meta name="twitter:card" content="summary_large_image" />
-                    <meta name="twitter:site" content="@Revision_HQ" />
-                    <meta name="twitter:creator" content="@Revision_HQ" />
-                    <meta property="og:url" content="" />
-                    <meta property="og:title" content={data.contentfulLandingPage.title} />
-                    <meta property="og:description" content={data.contentfulLandingPage.description} />
-                    <meta property="og:image" content="" />
-                </Helmet>
+                  <meta name="twitter:card" content="summary_large_image" />
+                  <meta name="twitter:site" content="@Revision_HQ" />
+                  <meta name="twitter:creator" content="@Revision_HQ" />
+                  <meta property="og:url" content="" />
+                  <meta property="og:title" content={contentfulOptions.title} />
+                  <meta property="og:description" content={contentfulOptions.description.childMarkdownRemark.rawMarkdownBody} />
+                  <meta property="og:image" content={contentfulOptions.image.file.url} />
 
-                <div className="tiles">
-                    <div className="tile tile-4 headline">
-                        <div className="tile-quarter">
-                            <Header data={data} />
-                        </div>
-                        <div className="tile-quarter no-pad-v">
-                            <Repeater title={data.contentfulLandingPage.baseline} />
-                        </div>
-                        <div className="tile-quarter">
-                            <Cta data={data} />
-                            
-                        </div>
-                        <div className="tile-quarter">
-                            <div>{data.contentfulLandingPage.description}</div>
-                        </div>
-                    </div>
-                    <div className="tile tile-2 tile-h-auto">
-                        <div className="tile-half ">
-                            <Social data={data} />
-                        </div>
-                        <div className="tile-half">
-                            <Footer data={data} />
-                        </div>
-                    </div>
-                </div>
-            </main>
+                  <body className={bodyClass} />
+              </Helmet>
+
+              <div className="tiles-wrap">
+                <Tiles 
+                data={allContentfulTile.edges} />
+              </div>
+              
+              <Menu 
+                menu={contentfulMenu}
+                options={contentfulOptions}
+                tiles={allContentfulTile.edges} />
+
+              <Modal />
+          </main>
         )
     }
 }
@@ -91,27 +105,225 @@ class Index extends React.Component {
 export default Index
 
 export const query = graphql `
-    query{
-        contentfulLandingPage {
+    query {
+      contentfulOptions{
+        title
+        description{
+          childMarkdownRemark{
+            html
+            rawMarkdownBody
+          }
+        }
+        
+        image{
+          file {
+            url
+          }
+        }
+      }
+      contentfulMenu {
+        title
+        nav {
+          title
+          slug
+          subtitle
+          display
+        }
+        links{
+          label
+          url
+        }
+        social{
+          label
+          url
+          service
+        }
+      }
+      
+      allContentfulTile(sort: {fields: hierarchy}) {
+        edges {
+          node {
             title
-            baseline
-            description
-            date{
-                childMarkdownRemark{
-                    html
+            subtitle
+            slug
+            hierarchy
+            display
+            postTiles {
+              __typename
+              ... on Node {
+              ... on ContentfulLinkText {
+                size
+                title
+                subheadline
+                linkUrl
+                linkLabel
+                service
+                people {
+                  name
+                  info
+                  image {
+                    file {
+                      contentType
+                      fileName
+                      url
+                    }
+                    fluid(maxWidth: 1440, quality: 80) {
+                      sizes
+                      src
+                      srcSet
+                    }
+                  }
                 }
-            }
-            tickets
-            nav{
-                label
+                texte {
+                  childMarkdownRemark {
+                    html
+                  }
+                }
+              }
+              ... on ContentfulAds {
+                id
+                size
+                title
+                
+                image {
+                  file {
+                    contentType
+                    fileName
+                    url
+                  }
+                  fluid(maxWidth: 1440, quality: 80) {
+                    sizes
+                    src
+                    srcSet
+                  }
+                }
+                sponsor {
+                  title
+                  url
+                  image {
+                    file {
+                      contentType
+                      fileName
+                      url
+                    }
+                    fluid(maxWidth: 1440) {
+                      sizes
+                      src
+                      srcSet
+                    }
+                  }
+                }
+              }
+              ... on ContentfulEvent {
+                size
+                title
+                date
+                subheadline
+                eventType
+                peoples {
+                  name
+                  info
+                  image {
+                    file {
+                      contentType
+                      fileName
+                      url
+                    }
+                    fluid(maxWidth: 1440) {
+                      sizes
+                      src
+                      srcSet
+                    }
+                  }
+                }
+                sponsor{
+                  title
+                  url
+                  image {
+                    file {
+                      contentType
+                      fileName
+                      url
+                    }
+                    fluid(maxWidth: 1440) {
+                      sizes
+                      src
+                      srcSet
+                    }
+                  }
+                }
+              }
+              ... on ContentfulLink {
+                size
+                title
                 url
+                service
+              }
+              ... on ContentfulHeadline {
+                size
+                title
+                texte{
+                  childMarkdownRemark{
+                    html
+                  }
+                }
+                links{
+                  label
+                  url
+                }
+              }
+              ... on ContentfulTexte {
+                size
+                title
+                capLines
+                people {
+                  name
+                  info
+                  image {
+                    file {
+                      contentType
+                      fileName
+                      url
+                    }
+                    fluid(maxWidth: 1440, quality: 80) {
+                      sizes
+                      src
+                      srcSet
+                    }
+                  }
+                }
+                texte {
+                  childMarkdownRemark {
+                    html
+                  }
+                }
+              }
+              ... on ContentfulMedia {
+                size
+                title
+                video
+                image {
+                  file {
+                    contentType
+                    fileName
+                    url
+                  }
+                  fluid(maxWidth: 1440, quality: 80) {
+                 
+                    ...GatsbyContentfulFluid
+                  }
+                  
+                }
+              }
+              ... on ContentfulRepeater{
+                title
+                size
+                }
+              }
             }
+          }
         }
-        contentfulFooter {
-            links {
-                label
-                url
-            }
-        }
+      }
     }
-`
+    
+`   

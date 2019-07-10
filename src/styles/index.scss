@@ -2,27 +2,42 @@
 @import "variables";
 @import "vendor/flexboxgrid/flexboxgrid";
 
-
 @import "mixins";
-
+@import "utils";
 //@import "utils";
 
 @import "typography";
+@import "icons";
+
+
+@import "tiles";
 
 @import "partials/content";
-@import "partials/tiles";
-@import "partials/repeater";
 @import "partials/header";
-@import "partials/footer";
-@import "partials/social";
-@import "partials/cta";
+
+@import "inc/menu/menu";
+@import "inc/menu/menu-index";
+@import "inc/menu/menu-cta";
+
+@import "inc/video";
+@import "inc/modal";
+//@import "partials/footer";
+//@import "ui/social";
+
+@import "ui/btn";
+@import "ui/ui-repeater";
+@import "ui/ui-texte";
+@import "ui/ui-headline";
+@import "ui/ui-media";
+@import "ui/ui-link";
+@import "ui/ui-link-texte";
+@import "ui/ui-ads";
+@import "ui/ui-event";
+@import "ui/people";
+@import "ui/sponsor";
+
 
 @import "layout";
-// @import "header";
-// @import "menu";
-// @import "footer";
-// @import "projets";
-// @import "projet";
-// @import "carousel-modal";
-
-@import "landing";
+//@import "landing";
+@import "pages/page-article";
+@import "pages/page-404";

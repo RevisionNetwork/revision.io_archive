@@ -6,10 +6,11 @@
 $max-width: 1800px;
 
 /* Colors */
-$color1: #000;
-$color2: blue;
-$links: $color1;
-$hover: $color2;
+$color1: #222;
+$color2: #fff;
+$color3: #fafafa;
+//$links: $color1;
+//$hover: $color2;
 
 $bg: white;
 
@@ -21,6 +22,19 @@ $margeL: $margeXS * 8;
 
 /* Fonts */
 $fontPrimary: 'BasierCircle-Regular', sans-serif;
+$fontSecondary: 'Anonymous Pro', monospace;
+
+$fontXs: calc(2.8vh * 0.7);
+$fontXsLh: 2.8vh;
+
+$fontS: calc(3.5vh * 0.7);
+$fontSLh: 3.5vh;
+
+$fontM: calc(4.9vh * 0.7);
+$fontMLh: 4.9vh;
+
+$fontL: calc(7vh * 0.7);
+$fontLLh: 7vh;
 
 $headline: 4.9vh;
 $headlineLh: 7vh;
@@ -33,11 +47,13 @@ $indexWidth: $xHeightM + $margeS;
 
 /* Borders */
 $borderHeight: 2px;
+$borderHeight: 2.8vh;
+$borderHeight: 0.343vh;
 $border: $borderHeight solid;
 
 $tileWidth: 50vw;
 $tileHeight: 50vh;
-$paddV:3.5vh;
+$paddV:4.9vh;
 $paddH:2vw;
 
 $gutter: $margeXS / 2;
@@ -47,3 +63,4 @@ $cap: 1920px;
 $m: 1024px;
 $s: 768px;
 $xs: 500px;
+$ipad: 1024px;

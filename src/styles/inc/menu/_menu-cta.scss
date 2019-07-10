@@ -1,0 +1,37 @@
+.xs-only{visibility: hidden}
+.menu-cta{
+    position: fixed;
+    right: 0; top: 0;
+    z-index: 250;
+    height: 4.9vh;
+    padding: 0 0.7em;
+    background: #eee;
+    top: 1.4vh; right: 2vw;
+    //border-radius: calc(2.8vh * 0.7);
+    border-radius: 4.9vh;
+    line-height: 4.9vh;
+    @include anime();
+    &.active{
+        width: 4.9vh;
+        border-radius: 100%;
+        text-align: center;
+    }
+}
+
+@media all and (max-width: $ipad){
+    .xs-only{visibility: visible}
+}
+@media all and (min-width: 834px) and (max-width: 834px){
+    .menu-cta{
+        height: auto;
+    }
+}
+
+/* ----------- iPad Pro ----------- */
+/* Portrait and Landscape */
+@media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    .menu-cta.xs-only{visibility: visible}
+}

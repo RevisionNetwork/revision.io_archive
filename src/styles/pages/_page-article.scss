@@ -1,0 +1,21 @@
+.page-article{
+    
+    header{
+        padding: $paddV $paddH;
+        border-bottom: $border;
+    }
+    article{
+        padding: $paddV $paddH;
+        max-width: $ipad;
+        margin: 0 auto;
+        h1,
+        .hero{
+            margin-bottom: $paddV;
+            text-align: center;
+        }
+        .wrapper{
+            max-width: 740px;
+            margin: 0 auto;
+        }
+    }
+}

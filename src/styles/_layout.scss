@@ -1,12 +1,37 @@
 html{
-    //scroll-behavior: smooth;
+    //overflow: auto;
+    
+    &:not(.safari){
+        overflow: hidden;
+        body{
+            overflow: auto;
+            scroll-behavior: smooth;
+        }
+    }
+    body{
+        //overflow: visible;
+        
+        //height: 200vh;
+        //overflow: scroll;
+        //overflow: auto;
+
+        scroll-snap-type: both mandatory;
+    }
+    .tile{
+        scroll-snap-align: start;
+    }
 }
 main{
-    &.is-carousel{
-        header,
-        footer,
-        .projets{
-            filter: blur(50px)
+
+    .tiles-wrap{
+        @include anime(.6s, 0s);
+        ///transform: perspective(100vw) translateZ(0) translateX(0);
+        opacity: 1;
+    }
+    &.is-menu{
+        .tiles-wrap{
+            //transform: perspective(860px) translateZ(-318vh) translateX(-100%);
+            opacity: 0;
         }
     }
 }
@@ -14,9 +39,31 @@ main{
 .hidden-xs{display: block}
 .hidden-m{display: none}
 
-@media all and (max-width:767px){
+@media all and (max-width:$ipad){
+    html{
+        body{
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: unset;
+            //scroll-behavior: unset
+        }
+    }
     .hidden-xs{display: none}
     .hidden-m{display: block}
+}
+
+/* ----------- iPad Pro ----------- */
+/* Portrait and Landscape */
+@media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    html.ipad{
+        body{
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: unset;
+            //scroll-behavior: unset
+        }
+    }
 }
 
 .no-pad-v{

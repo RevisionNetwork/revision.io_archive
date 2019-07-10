@@ -1,0 +1,23 @@
+.menu-index{
+    overflow: hidden;
+    overflow-y: auto;
+    max-height: calc( 100vh - (#{$margeM} * 2) );
+    h2{margin-bottom: $margeS;}
+    .index-item{
+        margin-bottom: $margeS;
+        .index{margin-bottom: $margeXS}
+        li{
+            cursor: pointer;
+            @include anime();
+            &.inactive{opacity: .3;}
+            h3{text-transform: uppercase}
+        }
+    }
+}
+
+@media all and (max-width:767px){
+    .menu-index{
+        overflow: initial;
+        max-height: none
+    }
+}

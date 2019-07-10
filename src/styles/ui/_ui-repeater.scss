@@ -1,0 +1,29 @@
+.ui-repeater{
+    scroll-behavior: smooth;
+    overflow: hidden;
+    height: 100%;
+    .item{
+        &.blink{
+            animation: blink 1s linear 0s infinite alternate;
+        }
+    }
+}
+
+@keyframes blink {
+    from {color: black}
+    to {color: #fafafa;}
+}
+
+@media all and (max-width:$ipad){
+    .tile-repeater.tile-half{
+        max-height: none;
+        height: 50vh;
+    }
+    .ui-repeater{
+        .item{
+            &.blink{
+                animation: none;
+            }
+        }
+    }
+}

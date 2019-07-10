@@ -4,9 +4,8 @@ if (process.env.ENVIRONMENT !== 'production') {
   dotenv.config();
 }
 
-const { spaceId, accessToken } = process.env;
-console.log(spaceId)
-console.log(accessToken)
+const { spaceId, accessToken, environment } = process.env;
+
 module.exports = {
   siteMetadata: {
     title: 'REVISION.IO',
@@ -16,18 +15,21 @@ module.exports = {
     'gatsby-plugin-styled-components',
     'gatsby-plugin-sass',
     'gatsby-transformer-remark',
+    `gatsby-transformer-sharp`, 
+    `gatsby-plugin-sharp`,
     {
       resolve: 'gatsby-source-contentful',
       options: {
         spaceId,
         accessToken,
+        //environment,
       },
     },
-    // {
-    //   resolve: `gatsby-plugin-google-fonts`,
-    //   options: {
-    //     fonts: ['Quicksand:400,700'],
-    //   },
-    // },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-123294241-1",
+      },
+    }
   ],
 };
