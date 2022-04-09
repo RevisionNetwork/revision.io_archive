@@ -28,7 +28,7 @@
     "gatsby-transformer-remark": "^2.1.7",
     "gatsby-transformer-sharp": "^2.2.0",
     "intersection-observer": "^0.7.0",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "node-sass": "^4.11.0",
     "pubsub-js": "^1.7.0",
     "react": "^16.6.0",
